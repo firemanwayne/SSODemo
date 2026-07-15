@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="SSODemo.AppOne/SSODemo.AppOne.csproj" />
+  <Project Path="SSODemo.AppTwo/SSODemo.AppTwo.csproj" />
+  <Project Path="SSODemo.IdentityProvider/SSODemo.IdentityProvider.csproj" />
+</Solution>

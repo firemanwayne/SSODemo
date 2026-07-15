@@ -1,0 +1,22 @@
+@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
+
+<div style="min-height: 100vh; background: #f0faf5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+    <nav style="background: #198754; color: white; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <strong style="font-size: 18px;">App Two (Green)</strong>
+            <span style="opacity: 0.8; margin-left: 12px; font-size: 14px;">http://localhost:5021</span>
+        </div>
+        <div>
+            <AuthorizeView>
+                <Authorized>
+                    <span style="margin-right: 16px;">Hello, @context.User.Identity?.Name</span>
+                    <a href="/logout" style="color: white; background: rgba(255,255,255,0.2); padding: 6px 16px; border-radius: 6px; text-decoration: none;">Logout</a>
+                </Authorized>
+            </AuthorizeView>
+        </div>
+    </nav>
+    <main style="padding: 32px; max-width: 800px; margin: 0 auto;">
+        @Body
+    </main>
+</div>

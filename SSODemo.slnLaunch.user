@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "SSODemo.IdentityProvider\\SSODemo.IdentityProvider.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "SSODemo.AppOne\\SSODemo.AppOne.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "SSODemo.AppTwo\\SSODemo.AppTwo.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

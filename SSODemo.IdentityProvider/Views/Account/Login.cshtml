@@ -1,0 +1,130 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SSO Login - Identity Provider</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+        }
+        .idp-badge {
+            background: #6f42c1;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .idp-badge h1 { font-size: 20px; margin-bottom: 4px; }
+        .idp-badge p { font-size: 13px; opacity: 0.85; }
+        h2 { margin-bottom: 20px; color: #333; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; color: #555; font-size: 14px; }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.2s;
+        }
+        input:focus { outline: none; border-color: #6f42c1; }
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: #6f42c1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        .btn-login:hover { background: #5a32a3; }
+        .error { background: #fee; color: #c00; padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; }
+        .demo-users {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .demo-users h3 { font-size: 14px; color: #888; margin-bottom: 10px; }
+        .demo-users table { width: 100%; font-size: 14px; }
+        .demo-users td { padding: 4px 8px; }
+        .demo-users td:first-child { font-weight: 600; color: #555; }
+        .demo-users td:last-child { color: #888; font-family: monospace; }
+        .sso-note {
+            margin-top: 20px;
+            padding: 12px;
+            background: #f8f0ff;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #6f42c1;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="idp-badge">
+            <h1>Identity Provider</h1>
+            <p>SSO Demo - Central Authentication</p>
+        </div>
+
+        <h2>Sign In</h2>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="error">@ViewBag.Error</div>
+        }
+
+        <form method="post" asp-action="Login" asp-controller="Account">
+            <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="alice or bob" autofocus />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="password" />
+            </div>
+
+            <button type="submit" class="btn-login">Sign In</button>
+        </form>
+
+        <div class="demo-users">
+            <h3>Demo Accounts</h3>
+            <table>
+                <tr><td>alice</td><td>password</td></tr>
+                <tr><td>bob</td><td>password</td></tr>
+            </table>
+        </div>
+
+        <div class="sso-note">
+            This is a shared Identity Provider.<br/>
+            Signing in here grants access to all connected apps.
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+
+<PageTitle>App Two - SSO Demo</PageTitle>
+
+<div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 24px;">
+    <h2 style="color: #198754; margin-top: 0;">Authenticated</h2>
+    <p style="font-size: 18px;">Welcome, <strong>@Username</strong></p>
+
+    <h3 style="margin-top: 24px;">Your Claims</h3>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 8px;">
+        <thead>
+            <tr style="background: #e8f5ee;">
+                <th style="text-align: left; padding: 10px 14px; border-bottom: 2px solid #198754;">Type</th>
+                <th style="text-align: left; padding: 10px 14px; border-bottom: 2px solid #198754;">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var claim in Claims)
+            {
+                <tr>
+                    <td style="padding: 8px 14px; border-bottom: 1px solid #eee; font-family: monospace; font-size: 13px; word-break: break-all;">@claim.Type</td>
+                    <td style="padding: 8px 14px; border-bottom: 1px solid #eee;">@claim.Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+    <h3 style="margin-top: 0;">Try Single Sign-On</h3>
+    <p style="color: #555; line-height: 1.6;">
+        Open <a href="http://localhost:5011" style="color: #0d6efd; font-weight: 600;">App One (Blue) at http://localhost:5011</a>
+        in this browser. You'll be signed in automatically — no password prompt — because the Identity Provider
+        at <a href="http://localhost:5001" style="color: #6f42c1;">http://localhost:5001</a>
+        already has your session.
+    </p>
+</div>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState>? AuthState { get; set; }
+
+    private string Username = "";
+    private System.Security.Claims.Claim[] Claims = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthState is not null)
+        {
+            var state = await AuthState;
+            Username = state.User.Identity?.Name ?? "Unknown";
+            Claims = state.User.Claims.ToArray();
+        }
+    }
+}
